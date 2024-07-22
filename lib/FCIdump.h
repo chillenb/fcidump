@@ -210,14 +210,14 @@ class FCIdump {
    * @param value numerical value of the integral
    * @return
    */
-  integralType nextIntegral(unsigned int& symi,
-                            size_t& i,
-                            unsigned int& symj,
-                            size_t& j,
-                            unsigned int& symk,
-                            size_t& k,
-                            unsigned int& syml,
-                            size_t& l,
+  integralType nextIntegral(int& symi,
+                            int& i,
+                            int& symj,
+                            int& j,
+                            int& symk,
+                            int& k,
+                            int& syml,
+                            int& l,
                             double& value) const;
   std::string data() const { return namelistData; }
 
@@ -226,20 +226,20 @@ class FCIdump {
    * @param orbital The index of the orbital, counting from 1
    * @return The symmetry, in the range 0-7
    */
-  off_t orbital_symmetry(int orbital) const { return orbital_symmetries[orbital-1]; }
+  int orbital_symmetry(int orbital) const { return orbital_symmetries[orbital-1]; }
   /*!
    * @brief Get the number of previous orbitals of the same symmetry
    * @param orbital The index of the orbital, counting from 1
    * @return The offset
    */
-  off_t orbital_offset(int orbital) const { return orbital_offsets[orbital-1]; }
+  int orbital_offset(int orbital) const { return orbital_offsets[orbital-1]; }
   /*!
    * @brief Get the orbital number for a given symmetry and offset
    * @param symmetry The symmetry of the orbital, in the range 0-7
    * @param offset The offset of the orbital in its symmetry
    * @return The index of the orbital, counting from 1
    */
-  int orbital_number(off_t symmetry, off_t offset) const { return orbital_numbers[symmetry][offset]; }
+  int orbital_number(int symmetry, int offset) const { return orbital_numbers[symmetry][offset]; }
 
  private:
   std::string _fileName;

@@ -71,23 +71,24 @@ TEST(testFCIdump, basic) {
 
     {
       double value;
-      off_t is, js, ks, ls, io, jo, ko, lo;
+      int is, js, ks, ls;
+      int io, jo, ko, lo;
       dump.rewind();
       for (const auto& labels : integrals) {
         auto type = dump.nextIntegral(is, io, js, jo, ks, ko, ls, lo, value);
         ASSERT_NE(type, FCIdump::endOfFile);
         ASSERT_THAT(value, DoubleNear(testvalue(labels[0], labels[1], labels[2], labels[3]), 1e-12));
         if (is < 8 && ks < 8)
-          ASSERT_THAT(std::vector<off_t>({is, io, js, jo, ks, ko, ls, lo}),
-                      Pointwise(Eq(), std::vector<off_t>{
+          ASSERT_THAT(std::vector<int>({is, io, js, jo, ks, ko, ls, lo}),
+                      Pointwise(Eq(), std::vector<int>{
                           dump.orbital_symmetry(labels[0]), dump.orbital_offset(labels[0]),
                           dump.orbital_symmetry(labels[1]), dump.orbital_offset(labels[1]),
                           dump.orbital_symmetry(labels[2]), dump.orbital_offset(labels[2]),
                           dump.orbital_symmetry(labels[3]), dump.orbital_offset(labels[3])
                       }));
         else if (is < 8)
-          ASSERT_THAT(std::vector<off_t>({is, io, js, jo}),
-                      Pointwise(Eq(), std::vector<off_t>{
+          ASSERT_THAT(std::vector<int>({is, io, js, jo}),
+                      Pointwise(Eq(), std::vector<int>{
                           dump.orbital_symmetry(labels[0]), dump.orbital_offset(labels[0]),
                           dump.orbital_symmetry(labels[1]), dump.orbital_offset(labels[1])
                       }));
